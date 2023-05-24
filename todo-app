@@ -1,0 +1,48 @@
+from tkinter import *
+from tkinter import messagebox
+import datetime
+app=Tk()
+app.title("To-do app")
+list=[]
+def add_todo():
+    item = entry.get()
+    if item:
+        list.append(item)
+        listbox.insert(END, item)
+        entry.delete(0, END)
+    else:
+        messagebox.showwarning("Warning", "Please enter a to-do item.")
+        def delete_todo():
+    try:
+        index = listbox.curselection()
+        list.pop(index)
+        listbox.delete(index)
+    except:
+        messagebox.showwarning("Warning", "Please select a to-do item to delete.")
+        def set_reminder():
+    Try:
+        index = listbox.curselection()
+        item = list[index]
+        now = datetime.datetime.now()
+        reminder_time = now.strftime("%Y-%m-%d %H:%M:%S")
+        messagebox.showinfo("Reminder Set", f"A reminder has been set for '{item}' at {reminder_time}.")
+    except:
+        messagebox.showwarning("Warning", "Please select a to-do item to set a reminder.")
+        label = Label(app, text="Enter a to-do item:")
+label.pack()
+
+entry = Entry(app, width=30)
+entry.pack()
+
+add_button = Button(app, text="Add", command=add_todo)
+add_button.pack()
+
+delete_button = Button(app, text="Delete", command=delete_todo)
+delete_button.pack()
+
+reminder_button = Button(app, text="Set Reminder", command=set_reminder)
+reminder_button.pack()
+
+listbox = Listbox(app, width=50)
+listbox.pack()
+app.mainloop
